@@ -51,6 +51,14 @@ public class LocalBookFragment extends Fragment implements View.OnClickListener 
     private LatLng pickup;
     private List<LatLng> destination;
 
+    public LocalBookFragment(){}
+
+    public static LocalBookFragment newInstance(Bundle intentExtra) {
+        LocalBookFragment f = new LocalBookFragment();
+        f.setArguments(intentExtra);
+        return f;
+    }
+
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -70,14 +78,17 @@ public class LocalBookFragment extends Fragment implements View.OnClickListener 
         roundtrip = rootView.findViewById(R.id.roundtrip);
         AC = rootView.findViewById(R.id.AC);
         NonAC = rootView.findViewById(R.id.NonAC);
+
         button.setOnClickListener(this);
         button1.setOnClickListener(this);
         oneway.setOnClickListener(this);
         roundtrip.setOnClickListener(this);
         AC.setOnClickListener(this);
         NonAC.setOnClickListener(this);
-        if (((AppCompatActivity) getActivity()).getSupportActionBar() != null)
+
+        if (getActivity() != null && ((AppCompatActivity) getActivity()).getSupportActionBar() != null)
             ((AppCompatActivity) getActivity()).getSupportActionBar().hide();
+
         session = new SessionManager(getContext());
         strEmail = session.getEmail();
         RadioGroup radio;
@@ -88,7 +99,7 @@ public class LocalBookFragment extends Fragment implements View.OnClickListener 
         radio2 = rootView.findViewById(R.id.radio2);
         FriendContact.setVisibility(View.INVISIBLE);
 
-        Bundle Coordinates = getActivity().getIntent().getExtras();
+        Bundle Coordinates = getArguments();
         if (Coordinates != null) {
             double[] lat = Coordinates.getDoubleArray("lat");
             double[] lng = Coordinates.getDoubleArray("lng");

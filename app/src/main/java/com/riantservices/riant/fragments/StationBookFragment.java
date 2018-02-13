@@ -46,6 +46,14 @@ public class StationBookFragment extends Fragment implements View.OnClickListene
     private String strEmail, strBookFor, strTrip, strAC, strPickup, strDestination, strNumber;
     private LatLng pickup, destination;
 
+    public StationBookFragment(){}
+
+    public static StationBookFragment newInstance(Bundle intentExtra) {
+        StationBookFragment f = new StationBookFragment();
+        f.setArguments(intentExtra);
+        return f;
+    }
+
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -64,14 +72,17 @@ public class StationBookFragment extends Fragment implements View.OnClickListene
         roundtrip = rootView.findViewById(R.id.roundtrip);
         AC = rootView.findViewById(R.id.AC);
         NonAC = rootView.findViewById(R.id.NonAC);
+
         button.setOnClickListener(this);
         button1.setOnClickListener(this);
         oneway.setOnClickListener(this);
         roundtrip.setOnClickListener(this);
         AC.setOnClickListener(this);
         NonAC.setOnClickListener(this);
-        if (((AppCompatActivity) getActivity()).getSupportActionBar() != null)
+
+        if (getActivity() != null && ((AppCompatActivity) getActivity()).getSupportActionBar() != null)
             ((AppCompatActivity) getActivity()).getSupportActionBar().hide();
+
         session = new SessionManager(getContext());
         strEmail = session.getEmail();
         RadioGroup radio;
@@ -81,7 +92,8 @@ public class StationBookFragment extends Fragment implements View.OnClickListene
         radio = rootView.findViewById(R.id.radio);
         radio2 = rootView.findViewById(R.id.radio2);
         FriendContact.setVisibility(View.INVISIBLE);
-        Bundle Coordinates = getActivity().getIntent().getBundleExtra("Coordinates");
+
+        Bundle Coordinates = getArguments();            //getActivity().getIntent().getBundleExtra("Coordinates");
         if (Coordinates != null) {
             double[] lat = Coordinates.getDoubleArray("lat");
             double[] lng = Coordinates.getDoubleArray("lng");

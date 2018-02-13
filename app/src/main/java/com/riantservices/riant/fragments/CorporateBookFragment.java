@@ -45,6 +45,14 @@ public class CorporateBookFragment extends Fragment implements View.OnClickListe
     private String mon, tue, wed, thu, fri, sat, sun;
     private LatLng pickup, destination;
 
+    public CorporateBookFragment(){}
+
+    public static CorporateBookFragment newInstance(Bundle intentExtra) {
+        CorporateBookFragment f = new CorporateBookFragment();
+        f.setArguments(intentExtra);
+        return f;
+    }
+
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -85,8 +93,9 @@ public class CorporateBookFragment extends Fragment implements View.OnClickListe
         button.setOnClickListener(this);
         button1.setOnClickListener(this);
 
-        if (((AppCompatActivity) getActivity()).getSupportActionBar() != null)
+        if (getActivity() != null && ((AppCompatActivity) getActivity()).getSupportActionBar() != null)
             ((AppCompatActivity) getActivity()).getSupportActionBar().hide();
+
         session = new SessionManager(getContext());
         strEmail = session.getEmail();
 
@@ -113,7 +122,7 @@ public class CorporateBookFragment extends Fragment implements View.OnClickListe
         radio13 = rootView.findViewById(R.id.radio13);
         FriendContact.setVisibility(View.INVISIBLE);
 
-        Bundle Coordinates = getActivity().getIntent().getExtras();
+        Bundle Coordinates = getArguments();
         if (Coordinates != null) {
             double[] lat = Coordinates.getDoubleArray("lat");
             double[] lng = Coordinates.getDoubleArray("lng");

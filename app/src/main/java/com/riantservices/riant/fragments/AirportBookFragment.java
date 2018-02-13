@@ -53,6 +53,13 @@ public class AirportBookFragment extends Fragment implements View.OnClickListene
     private String strEmail, strBookFor, strTrip, strAC, strPickup, strDestination, strNumber;
     private LatLng pickup, destination;
 
+    public AirportBookFragment(){}
+
+    public static AirportBookFragment newInstance(Bundle intentExtra) {
+        AirportBookFragment f = new AirportBookFragment();
+        f.setArguments(intentExtra);
+        return f;
+    }
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
@@ -60,7 +67,7 @@ public class AirportBookFragment extends Fragment implements View.OnClickListene
 
         View rootView = inflater.inflate(R.layout.activity_airport_book, container, false);
 
-        Bundle coordinates = getActivity().getIntent().getExtras();
+        Bundle coordinates = getArguments();
 
         strBookFor = "";
         strTrip = "";
