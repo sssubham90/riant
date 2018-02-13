@@ -46,6 +46,13 @@ public class OutstationBookFragment extends Fragment implements View.OnClickList
     private String strEmail, strBookFor, strTrip, strAC, strPickup, strDestination, strNumber;
     private LatLng pickup, destination;
 
+    public OutstationBookFragment(){}
+
+    public static OutstationBookFragment newInstance(Bundle intentExtra) {
+        OutstationBookFragment f = new OutstationBookFragment();
+        f.setArguments(intentExtra);
+        return f;
+    }
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
@@ -71,8 +78,10 @@ public class OutstationBookFragment extends Fragment implements View.OnClickList
         roundtrip.setOnClickListener(this);
         AC.setOnClickListener(this);
         NonAC.setOnClickListener(this);
-        if (((AppCompatActivity) getActivity()).getSupportActionBar() != null)
+
+        if (getActivity() != null && ((AppCompatActivity) getActivity()).getSupportActionBar() != null)
             ((AppCompatActivity) getActivity()).getSupportActionBar().hide();
+
         session = new SessionManager(getContext());
         strEmail = session.getEmail();
         RadioGroup radio;
@@ -83,7 +92,7 @@ public class OutstationBookFragment extends Fragment implements View.OnClickList
         radio2 = rootView.findViewById(R.id.radio2);
         FriendContact.setVisibility(View.INVISIBLE);
 
-        Bundle Coordinates = getActivity().getIntent().getExtras();
+        Bundle Coordinates = getArguments();
         if (Coordinates != null) {
             double[] lat = Coordinates.getDoubleArray("lat");
             double[] lng = Coordinates.getDoubleArray("lng");
