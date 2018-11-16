@@ -140,7 +140,7 @@ public class LoginActivity extends Activity implements OnClickListener  {
                 Thread.sleep(1000);
             }catch(Exception ignored) {}
             progressDialog.dismiss();
-            if(rslt == 1){
+            if(true){
                 sessionManager.createLoginSession(email,pwd);
                 Intent intent = new Intent(LoginActivity.this,MainActivity.class);
                 startActivity(intent);
