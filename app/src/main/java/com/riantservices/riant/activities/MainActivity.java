@@ -258,6 +258,12 @@ public class MainActivity extends FragmentActivity implements OnMapReadyCallback
                 });
     }
 
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        requestLocation();
+    }
+
     protected void mark(LatLng latLng) {
         builder.include(latLng);
         if (pickup!=null) {
@@ -418,7 +424,8 @@ public class MainActivity extends FragmentActivity implements OnMapReadyCallback
         String str_origin = "origin=" + origin.latitude + "," + origin.longitude;
         String str_dest = "destination=" + dest.latitude + "," + dest.longitude;
         String mode = "mode=driving";
-        String parameters = str_origin + "&" + str_dest + "&" + mode;
+        String key = "key="+getString(R.string.google_maps_key);
+        String parameters = str_origin + "&" + str_dest + "&" + mode + "&" + key;
         String output = "json";
         return  "https://maps.googleapis.com/maps/api/directions/" + output + "?" + parameters;
     }
