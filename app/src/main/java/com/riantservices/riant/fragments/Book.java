@@ -1,24 +1,25 @@
 package com.riantservices.riant.fragments;
 
-import android.app.Fragment;
+import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.os.Looper;
-import android.support.v7.app.AlertDialog;
-import android.support.v7.widget.DefaultItemAnimator;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
-import com.riantservices.riant.adapters.BookAdapter;
-import com.riantservices.riant.interfaces.ClickListener;
-import com.riantservices.riant.helpers.ListDividerItem;
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.DefaultItemAnimator;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.riantservices.riant.R;
+import com.riantservices.riant.adapters.BookAdapter;
+import com.riantservices.riant.helpers.ListDividerItem;
 import com.riantservices.riant.helpers.RecyclerTouchListener;
 import com.riantservices.riant.helpers.SessionManager;
+import com.riantservices.riant.interfaces.ClickListener;
 import com.riantservices.riant.models.BookElements;
 
 import org.apache.http.HttpResponse;
@@ -37,7 +38,7 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Book extends Fragment{
+public class Book extends Fragment {
 
     private List<BookElements> BookList = new ArrayList<>();
 
@@ -123,7 +124,7 @@ public class Book extends Fragment{
         t.start();
     }
 
-    public void respond(InputStream in)throws JSONException {
+    private void respond(InputStream in)throws JSONException {
         JSONObject result = new JSONObject(in.toString());
         JSONObject resultArrayJson;
         JSONArray book = result.getJSONArray("history");

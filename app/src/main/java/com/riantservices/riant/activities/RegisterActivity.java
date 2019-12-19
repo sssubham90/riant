@@ -102,34 +102,18 @@ public class RegisterActivity extends Activity{
     }
 
     protected void Register(final String Name, final String Email,final String Phone,final String Password) {
-        try {
-                rslt="start";
-                CallerregisterUser c= new CallerregisterUser();
-                c.a=Name;
-                c.b=Phone;
-                c.c=Email;
-                c.d= Password;
-                c.join();
-                ProgressDialog progressDialog = new ProgressDialog(this);
-                progressDialog.setTitle("Connecting");
-                progressDialog.setIndeterminate(true);
-                progressDialog.show();
-                c.start();
-                while(rslt.equals("start")){
-                    try{
-                        Thread.sleep(1000);
-                    }catch(Exception ignored) {}
-                }
-                progressDialog.dismiss();
-                alertDialog("User Succcessfully Registered");
-                Intent intent = new Intent(RegisterActivity.this,LoginActivity.class);
-                intent.putExtra("Email",Email);
-                intent.putExtra("Pass",Password);
-                startActivity(intent);
-
-        } catch(Exception e) {
-            e.printStackTrace();
-            alertDialog("Error: Cannot Estabilish Connection");
-        }
+        ProgressDialog progressDialog = new ProgressDialog(this);
+        progressDialog.setTitle("Connecting");
+        progressDialog.setIndeterminate(true);
+        progressDialog.show();
+        try{
+            Thread.sleep(1000);
+        }catch(Exception ignored) {}
+        progressDialog.dismiss();
+        alertDialog("User Succcessfully Registered");
+        Intent intent = new Intent(RegisterActivity.this,LoginActivity.class);
+        intent.putExtra("Email",Email);
+        intent.putExtra("Pass",Password);
+        startActivity(intent);
     }
 }

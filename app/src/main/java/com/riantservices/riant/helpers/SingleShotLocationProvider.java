@@ -10,7 +10,8 @@ import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.v4.app.ActivityCompat;
+
+import androidx.core.app.ActivityCompat;
 
 public class SingleShotLocationProvider {
 
@@ -75,14 +76,14 @@ public class SingleShotLocationProvider {
             return true;
         else
             ActivityCompat.requestPermissions((Activity) context,new String[]{Manifest.permission.ACCESS_FINE_LOCATION,Manifest.permission.ACCESS_COARSE_LOCATION}, MY_PERMISSIONS_REQUEST_LOCATION);
-        return MY_PERMISSIONS_REQUEST_LOCATION==PackageManager.PERMISSION_GRANTED;
+        return false;
     }
 
 
     // consider returning Location instead of this dummy wrapper class
     public static class GPSCoordinates {
-        float longitude = -1;
-        float latitude = -1;
+        float longitude;
+        float latitude;
 
         GPSCoordinates(double theLatitude, double theLongitude) {
             longitude = (float) theLongitude;

@@ -1,11 +1,10 @@
 package com.riantservices.riant.activities;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.os.Looper;
-import android.support.v7.app.AlertDialog;
 import android.os.Bundle;
 import android.text.method.PasswordTransformationMethod;
 import android.view.View;
@@ -17,18 +16,6 @@ import android.widget.TextView;
 import com.riantservices.riant.R;
 import com.riantservices.riant.helpers.SessionManager;
 
-import org.apache.http.HttpResponse;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.methods.HttpPost;
-import org.apache.http.entity.StringEntity;
-import org.apache.http.impl.client.DefaultHttpClient;
-import org.apache.http.message.BasicHeader;
-import org.apache.http.params.HttpConnectionParams;
-import org.apache.http.protocol.HTTP;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.io.InputStream;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -125,34 +112,22 @@ public class LoginActivity extends Activity implements OnClickListener  {
     }
 
     protected void Login(final String email, final String pwd) {
-        try {
-            rslt=0;
-            CallerchkUser c= new CallerchkUser();
-            c.a=email;
-            c.b=pwd;
-            c.join();
-            ProgressDialog progressDialog = new ProgressDialog(this);
-            progressDialog.setTitle("Connecting");
-            progressDialog.setIndeterminate(true);
-            progressDialog.show();
-            c.start();
-            try{
-                Thread.sleep(1000);
-            }catch(Exception ignored) {}
-            progressDialog.dismiss();
-            if(true){
-                sessionManager.createLoginSession(email,pwd);
-                Intent intent = new Intent(LoginActivity.this,MainActivity.class);
-                startActivity(intent);
-            }
-            else
-            {
-                alertDialog("Invalid Username or Password, Try again!!");
-            }
-
-        } catch(Exception e) {
-            e.printStackTrace();
-            alertDialog("Error: Cannot Estabilish Connection");
+        ProgressDialog progressDialog = new ProgressDialog(this);
+        progressDialog.setTitle("Connecting");
+        progressDialog.setIndeterminate(true);
+        progressDialog.show();
+        try{
+            Thread.sleep(1000);
+        }catch(Exception ignored) {}
+        progressDialog.dismiss();
+        if(true){
+            sessionManager.createLoginSession(email);
+            Intent intent = new Intent(LoginActivity.this,MainActivity.class);
+            startActivity(intent);
+        }
+        else
+        {
+            alertDialog("Invalid Username or Password, Try again!!");
         }
     }
 }

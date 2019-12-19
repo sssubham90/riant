@@ -1,15 +1,16 @@
 package com.riantservices.riant.activities;
 
 
-import android.app.Fragment;
-import android.app.FragmentManager;
 import android.os.Bundle;
-import android.support.design.widget.TabLayout;
-import android.support.v13.app.FragmentPagerAdapter;
-import android.support.v4.view.ViewPager;
-import android.support.v7.app.AppCompatActivity;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentPagerAdapter;
+import androidx.viewpager.widget.ViewPager;
 
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.material.tabs.TabLayout;
 import com.riantservices.riant.R;
 import com.riantservices.riant.fragments.OutstateBook;
 import com.riantservices.riant.fragments.OutstateMap;
@@ -22,7 +23,7 @@ public class OutstateActivity extends AppCompatActivity implements SendMessage{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_outstate);
-        SectionsPagerAdapter mSectionsPagerAdapter = new SectionsPagerAdapter(getFragmentManager());
+        SectionsPagerAdapter mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
         ViewPager mViewPager = findViewById(R.id.container);
         mViewPager.setAdapter(mSectionsPagerAdapter);
 
@@ -83,20 +84,20 @@ public class OutstateActivity extends AppCompatActivity implements SendMessage{
     @Override
     public void sendData(LatLng location, String message, int x) {
         String tag = "android:switcher:" + R.id.container + ":" + 1;
-        OutstateBook outstateBook = (OutstateBook) getFragmentManager().findFragmentByTag(tag);
-        outstateBook.displayReceivedData(location,message,x);
+        OutstateBook outstateBook = (OutstateBook) getSupportFragmentManager().findFragmentByTag(tag);
+        outstateBook.displayReceivedData(message,x);
     }
     public void clearMap(){
         state1=null;
         state2=null;
         String tag = "android:switcher:" + R.id.container + ":" + 0;
-        OutstateMap outstateMap = (OutstateMap) getFragmentManager().findFragmentByTag(tag);
+        OutstateMap outstateMap = (OutstateMap) getSupportFragmentManager().findFragmentByTag(tag);
         outstateMap.alertSameState();
     }
 
     public void fillTextViews(String value){
         String tag = "android:switcher:" + R.id.container + ":" + 0;
-        OutstateMap outstateMap = (OutstateMap) getFragmentManager().findFragmentByTag(tag);
+        OutstateMap outstateMap = (OutstateMap) getSupportFragmentManager().findFragmentByTag(tag);
         outstateMap.setTextViews(value);
     }
 }

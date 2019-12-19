@@ -1,14 +1,10 @@
 package com.riantservices.riant.fragments;
 
+import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.os.Looper;
-import android.support.annotation.IdRes;
-import android.support.annotation.NonNull;
-import android.support.v4.app.Fragment;
-import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,6 +13,11 @@ import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
+
+import androidx.annotation.IdRes;
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
 
 import com.google.android.gms.maps.model.LatLng;
 import com.riantservices.riant.R;
@@ -38,7 +39,7 @@ import java.io.UnsupportedEncodingException;
 
 
 public class CorporateBook extends Fragment implements View.OnClickListener {
-    SessionManager session;
+    private SessionManager session;
     private EditText Pickup, Destination, FriendContact, Time;
     private RadioButton radio2, radio3, radio4, radio5, radio6, radio7, radio8, radio9, radio10, radio11, radio12, radio13;
     private String strEmail, strBookFor, strCar, strAC, strPickup, strDestination, strNumber, strTime, strDuration;
@@ -85,7 +86,7 @@ public class CorporateBook extends Fragment implements View.OnClickListener {
         button.setOnClickListener(this);
         button1.setOnClickListener(this);
 
-        if (((AppCompatActivity) getActivity()).getSupportActionBar() != null)
+        if (getActivity()!=null && ((AppCompatActivity) getActivity()).getSupportActionBar() != null)
             ((AppCompatActivity) getActivity()).getSupportActionBar().hide();
         session = new SessionManager(getContext());
         strEmail = session.getEmail();
@@ -388,7 +389,7 @@ public class CorporateBook extends Fragment implements View.OnClickListener {
     }
 
 
-    protected void Book() throws UnsupportedEncodingException {
+    private void Book() throws UnsupportedEncodingException {
         Thread t = new Thread() {
 
             public void run() {
@@ -441,7 +442,7 @@ public class CorporateBook extends Fragment implements View.OnClickListener {
         t.start();
     }
 
-    public void respond(InputStream in) throws JSONException {
+    private void respond(InputStream in) throws JSONException {
         JSONObject result = new JSONObject(in.toString());
 
         if (result.getInt("status") == 1) {

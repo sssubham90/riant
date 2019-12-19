@@ -47,7 +47,7 @@ public class GeocodeAddressIntentService extends IntentService {
             double longitude = intent.getDoubleExtra(Constants.LOCATION_LONGITUDE_DATA_EXTRA, 0);
 
             try {
-                Log.d("location", String.valueOf(latitude)+" "+String.valueOf(longitude));
+                Log.d("location", latitude +" "+ longitude);
                 addresses = geocoder.getFromLocation(latitude, longitude, 1);
             } catch (IOException ioException) {
                 errorMessage = "Service Not Available";
@@ -73,11 +73,11 @@ public class GeocodeAddressIntentService extends IntentService {
             deliverResultToReceiver(Constants.FAILURE_RESULT, errorMessage, null);
         } else {
             for(Address address : addresses) {
-                String outputAddress = "";
+                StringBuilder outputAddress = new StringBuilder();
                 for(int i = 0; i < address.getMaxAddressLineIndex(); i++) {
-                    outputAddress += " --- " + address.getAddressLine(i);
+                    outputAddress.append(" --- ").append(address.getAddressLine(i));
                 }
-                Log.e(TAG, outputAddress);
+                Log.e(TAG, outputAddress.toString());
             }
             Address address = addresses.get(0);
             ArrayList<String> addressFragments = new ArrayList<>();

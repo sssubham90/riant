@@ -1,19 +1,19 @@
 package com.riantservices.riant.activities;
 
-import android.app.Fragment;
-import android.app.FragmentManager;
-import android.support.design.widget.TabLayout;
-import android.support.v13.app.FragmentPagerAdapter;
-import android.support.v4.view.ViewPager;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
-import android.view.MenuItem;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentPagerAdapter;
+import androidx.viewpager.widget.ViewPager;
+
+import com.google.android.material.tabs.TabLayout;
 import com.riantservices.riant.fragments.Book;
 import com.riantservices.riant.fragments.History;
 import com.riantservices.riant.R;
 
-public class TripsActivity extends AppCompatActivity{
+public class TripsActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,7 +29,7 @@ public class TripsActivity extends AppCompatActivity{
       may be best to switch to a
       {@link android.support.v13.app.FragmentStatePagerAdapter}.
      */
-        SectionsPagerAdapter mSectionsPagerAdapter = new SectionsPagerAdapter(getFragmentManager());
+        SectionsPagerAdapter mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
 
         // Set up the ViewPager with the sections adapter.
         /*

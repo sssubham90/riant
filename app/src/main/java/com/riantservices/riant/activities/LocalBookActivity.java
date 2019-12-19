@@ -5,10 +5,6 @@ import android.app.TimePickerDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.os.Looper;
-import android.support.annotation.IdRes;
-import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
@@ -19,6 +15,10 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.TimePicker;
+
+import androidx.annotation.IdRes;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.gms.maps.model.LatLng;
 import com.riantservices.riant.R;
@@ -282,26 +282,7 @@ public class LocalBookActivity extends AppCompatActivity implements View.OnClick
     }
 
     private void fareEstimator(String type,int ac, double distanceValue, double timeValue) {
-        try {
-            rslt=0;
-            CallerLocalEstimate c = new CallerLocalEstimate();
-            c.a=type;
-            c.b=ac;
-            c.c=String.valueOf(distanceValue);
-            c.d=String.valueOf(timeValue);
-            c.join();
-            c.start();
-            try{
-                Thread.sleep(1000);
-            }catch(Exception ignored) {}
 
-            if(rslt!=0)
-                ((TextView)findViewById(R.id.estimate)).setText(String.valueOf(rslt));
-
-        } catch(Exception e) {
-            e.printStackTrace();
-            alertDialog("Error: Cannot Estabilish Connection");
-        }
     }
 
     public void alertDialog(String Message) {

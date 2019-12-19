@@ -21,17 +21,11 @@ public class SessionManager {
         pref = _context.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE);
     }
      
-    public void createLoginSession(String email, String number){
+    public void createLoginSession(String email){
         editor = pref.edit();
         editor.putBoolean(IS_LOGIN, true);
         editor.putString(KEY_EMAIL, email);
         editor.apply();
-    }
-
-    HashMap<String, String> getUserDetails(){
-        HashMap<String, String> user = new HashMap<>();
-        user.put(KEY_EMAIL, pref.getString(KEY_EMAIL, null));
-        return user;
     }
 
     public void logoutUser(){

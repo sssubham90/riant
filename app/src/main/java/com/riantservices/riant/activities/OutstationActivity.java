@@ -1,17 +1,14 @@
 package com.riantservices.riant.activities;
-
-
-import android.app.Fragment;
-import android.app.FragmentManager;
-import android.support.design.widget.TabLayout;
-import android.support.v13.app.FragmentPagerAdapter;
-import android.support.v4.view.ViewPager;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentPagerAdapter;
+import androidx.viewpager.widget.ViewPager;
 
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.material.tabs.TabLayout;
 import com.riantservices.riant.R;
-import com.riantservices.riant.fragments.OutstateMap;
 import com.riantservices.riant.fragments.OutstationBook;
 import com.riantservices.riant.fragments.OutstationMap;
 import com.riantservices.riant.interfaces.SendMessage;
@@ -22,7 +19,7 @@ public class OutstationActivity extends AppCompatActivity implements SendMessage
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_outstation);
-        SectionsPagerAdapter mSectionsPagerAdapter = new SectionsPagerAdapter(getFragmentManager());
+        SectionsPagerAdapter mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
         ViewPager mViewPager = findViewById(R.id.container);
         mViewPager.setAdapter(mSectionsPagerAdapter);
 
@@ -71,13 +68,13 @@ public class OutstationActivity extends AppCompatActivity implements SendMessage
     @Override
     public void sendData(LatLng location, String message, int x) {
         String tag = "android:switcher:" + R.id.container + ":" + 1;
-        OutstationBook outstationBook = (OutstationBook) getFragmentManager().findFragmentByTag(tag);
+        OutstationBook outstationBook = (OutstationBook) getSupportFragmentManager().findFragmentByTag(tag);
         outstationBook.displayReceivedData(location,message,x);
     }
 
     public void fillTextViews(String value){
         String tag = "android:switcher:" + R.id.container + ":" + 0;
-        OutstationMap outstationMap = (OutstationMap) getFragmentManager().findFragmentByTag(tag);
+        OutstationMap outstationMap = (OutstationMap) getSupportFragmentManager().findFragmentByTag(tag);
         outstationMap.setTextViews(value);
     }
 }

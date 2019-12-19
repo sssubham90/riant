@@ -43,7 +43,5 @@ public class BookElements{
         return contact;
     }
 
-    public void setContact(String contact) { this.contact = contact;}
-
     public String getFare() { return fare;}
 }

@@ -1,5 +1,7 @@
 package com.riantservices.riant.models;
+
 import android.Manifest;
+import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -10,11 +12,11 @@ import android.graphics.Paint;
 import android.net.Uri;
 import android.os.Handler;
 import android.os.Vibrator;
-import android.support.v4.content.ContextCompat;
-import android.support.v7.app.AlertDialog;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
+
+import androidx.core.content.ContextCompat;
 
 import com.riantservices.riant.R;
 

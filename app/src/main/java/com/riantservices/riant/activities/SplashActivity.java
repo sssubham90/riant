@@ -1,6 +1,7 @@
 package com.riantservices.riant.activities;
 
 import android.Manifest;
+import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -9,12 +10,12 @@ import android.location.LocationManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
-import android.support.annotation.NonNull;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.content.ContextCompat;
-import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 
 import com.riantservices.riant.R;
 import com.riantservices.riant.helpers.SessionManager;
@@ -77,20 +78,18 @@ public class SplashActivity extends AppCompatActivity {
     }
 
     @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String permissions[], @NonNull int[]grantResults) {
-        switch (requestCode) {
-            case MY_PERMISSIONS_REQUEST_LOCATION: {
-                if (grantResults.length > 0  && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    requestLocation();
-                    mHandler.postDelayed(new Runnable() {
-                        public void run() {
-                            start();
-                        }
-                    }, 2000);
-                } else {
-                    SplashActivity.this.finish();
-                    System.exit(0);
-                }
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[]grantResults) {
+        if (requestCode == MY_PERMISSIONS_REQUEST_LOCATION) {
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                requestLocation();
+                mHandler.postDelayed(new Runnable() {
+                    public void run() {
+                        start();
+                    }
+                }, 2000);
+            } else {
+                SplashActivity.this.finish();
+                System.exit(0);
             }
         }
     }

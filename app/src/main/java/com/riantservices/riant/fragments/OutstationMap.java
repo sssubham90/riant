@@ -6,8 +6,6 @@ import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.v7.widget.SearchView;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
@@ -15,8 +13,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.SearchView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
 
 import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -27,7 +29,6 @@ import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
-import com.riantservices.riant.activities.OutstateActivity;
 import com.riantservices.riant.activities.OutstationActivity;
 import com.riantservices.riant.helpers.AddressResultReceiver;
 import com.riantservices.riant.interfaces.AsyncResponse;
@@ -42,7 +43,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class OutstationMap extends android.app.Fragment implements OnMapReadyCallback {
+public class OutstationMap extends Fragment implements OnMapReadyCallback {
 
     private View mRootView;
     private LatLng pickup,destination;
@@ -170,7 +171,7 @@ public class OutstationMap extends android.app.Fragment implements OnMapReadyCal
         });
     }
 
-    protected void requestLocation(){
+    private void requestLocation(){
         SingleShotLocationProvider.requestSingleUpdate(getActivity(),
                 new SingleShotLocationProvider.LocationCallback() {
                     @Override public void onNewLocationAvailable(SingleShotLocationProvider.GPSCoordinates location) {
@@ -184,7 +185,7 @@ public class OutstationMap extends android.app.Fragment implements OnMapReadyCal
                 });
     }
 
-    protected void mark(LatLng latLng) {
+    private void mark(LatLng latLng) {
         if(pickup == null){
             pickup = latLng;
             googleMap.addMarker(new MarkerOptions().icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN)).position(latLng).title("Pickup"));
@@ -196,7 +197,7 @@ public class OutstationMap extends android.app.Fragment implements OnMapReadyCal
             getActivity().startService(intent);
         }
         else if (destination == null) {
-            float results[] = new float[1];
+            float[] results = new float[1];
             Location.distanceBetween(pickup.latitude,pickup.longitude,latLng.latitude,latLng.longitude,results);
             if(results[0]<30000){
                 Toast.makeText(getActivity(),"Destination is too near. Please choose a destination which is atleast 30KM away from the pickup location.",Toast.LENGTH_LONG).show();
@@ -233,7 +234,7 @@ public class OutstationMap extends android.app.Fragment implements OnMapReadyCal
     }
 
     @Override
-    public void onAttach(Context context) {
+    public void onAttach(@NonNull Context context) {
         super.onAttach(context);
 
         try {
